@@ -1,0 +1,64 @@
+#include <bits/stdc++.h> 
+using namespace std;  
+struct Node 
+{ 
+    int data; 
+    struct Node* left, *right; 
+}; 
+struct Node* newNode(int data) 
+{ 
+    struct Node* node = new(struct Node); 
+    node->data = data; 
+    node->left = node->right = NULL; 
+    return (node); 
+}
+int xyz(struct Node* root, int& max1) {
+        if(!root) return 0;
+        int leftB = xyz(root->left, max1), rightB = xyz(root->right, max1);
+        max1 = max(max1, max(leftB,0)+max(rightB,0)+root->data);
+        return max(0,max(leftB+root->data, rightB+root->data));
+    }
+int abc(struct Node* root) {
+        int max1 = -100;
+        xyz(root, max1);
+        return max1;
+    }
+    
+
+
+
+ int main() 
+{ int a;
+cout<< "Enter root\n";
+cin>>a;int b;
+    struct Node *root = newNode(a);
+	struct Node *temp=root; 
+    while(1)
+    {
+    	cout<<"Enter 1 for entering left node\n";
+    	cout<<"Enter 2 for entering right node\n";
+    	cout<<"Enter 3 for finding max path\n";
+    	cin>>a;
+    	switch(a)
+    	{
+    		case 1:
+    			cin>>b;
+    			temp->left = newNode(b);
+    			temp=temp->left;
+    			break;
+    		case 2:
+    			cin>>b;
+    			temp->right=newNode(b);
+    			temp=temp->right;
+    			break;
+    		case 3:
+    			cout<<abc(root);
+    			exit(0);
+    			break;
+    		default:
+    			cout<<"Wrong choice";
+		}
+	}
+    
+    return 0; 
+} 
